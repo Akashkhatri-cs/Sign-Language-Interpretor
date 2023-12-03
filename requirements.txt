@@ -81,8 +81,6 @@ tensorboard-data-server==0.7.2
 tensorflow==2.15.0
 tensorflow-decision-forests==1.8.1
 tensorflow-estimator==2.15.0
-tensorflow-hub==0.15.0
-tensorflow-intel==2.15.0
 tensorflow-io-gcs-filesystem==0.31.0
 tensorflowjs==4.13.0
 tensorstore==0.1.45
