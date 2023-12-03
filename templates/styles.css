@@ -1,0 +1,179 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+}
+
+#webcam {
+    width: 100%;
+    height: auto;
+    border: 3px solid #333;
+}
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 0.5rem 0;
+    margin-top: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    display: flex;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 1em;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+.webcam-container {
+	margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    width: 100%;
+}
+
+iframe {
+    width: 200px;
+    height: 100%;
+    border: none;
+}
+
+
+#webcam {
+    width: 640px;
+    height: 480px;
+    margin-top: 10px;
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.sidebar {
+  
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+
+/* CSS */
+.feature {
+    color: white;
+    text-decoration: none;
+    padding: 1em;
+}
+
+.feature.active {
+    background-color: #555; /* or any other styles for the active state */
+}
+/* Add this CSS for the separator */
+.separator {
+    width: 1px;
+	margin-top: 100px;
+    background-color: #ccc;
+    height: 100vh;
+    position: fixed;
+    left: 15%; /* Adjust this value based on your sidebar width */
+}

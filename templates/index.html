@@ -1,0 +1,171 @@
+<!-- index.html - Main interpreter page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Interpreter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1>Sign Language Interpreter</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="project.html">Project</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="separator"></div>
+    <main>
+        <div class="sidebar">
+            <h2>Control Features</h2>
+            <form>
+                <!-- <a class="active" name="feature" value="webcam" onclick="setFeature('webcam')" >
+                Webcam
+                <a class="active" name="feature" value="upload" onclick="setFeature('upload')">
+                Image Upload -->
+                <!-- HTML -->
+                <a class="feature active" name="feature" value="upload" data-value="upload"
+                    onclick="setFeature('upload')">Image Upload</a>
+                <a class="feature" name="feature" value="webcam" data-value="webcam"
+                    onclick="setFeature('webcam')">Webcam</a>
+
+
+            </form>
+
+            <!-- <script>
+            function setFeature(feature) {
+                window.parent.postMessage({ feature: feature }, '*');
+            }
+        </script> -->
+        </div>
+        <section class="webcam-container">
+            <!-- <iframe src="sidebar.html" width="200" height="100%" frameborder="0" scrolling="no"></iframe> -->
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+            <div class="prediction" id="prediction">
+                <p id="predicted-letter">A</p>
+            </div>
+            <br />
+            <button id="btntoggle" onclick="cameraonoff()">On</button>
+            <video id="video" width="640" height="480" autoplay></video>
+            <script>
+                var socket = new WebSocket("ws://localhost:8000/ws");
+                var videoElem = document.getElementById("video");
+                var btnElm = document.getElementById("btntoggle");
+                var isPlaying = !!videoElem.srcObject;
+                function cameraonoff() {
+                    if (!isPlaying) {
+                        cameraon();
+                    } else {
+                        cameraoff();
+                    }
+                }
+
+                function cameraon() {
+                    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                        navigator.mediaDevices
+                            .getUserMedia({
+                                video: true
+                            })
+                            .then(function (stream) {
+                                videoElem.srcObject = stream;
+                                videoElem.play();
+                            })
+                            .then(() => {
+                                isPlaying = true;
+                                btnElm.innerText = "Off";
+                            });
+                    }
+                }
+
+                function cameraoff() {
+                    const stream = videoElem.srcObject;
+                    if (stream) {
+                        const tracks = stream.getTracks();
+
+                        tracks.forEach(function (track) {
+                            track.stop();
+                        });
+
+                        videoElem.srcObject = null;
+                        isPlaying = false;
+                        btnElm.innerText = "On";
+                    }
+                }
+
+                socket.onmessage = function (event) {
+                    var blob = new Blob([event.data], { type: "image/jpeg" });
+                    var url = URL.createObjectURL(blob);
+                    videoElem.src = url;
+                };
+
+                window.addEventListener("message", function (event) {
+                    var feature = event.data.feature;
+                    setFeature(feature);
+                });
+
+
+
+                function predictImage() {
+                    var fileInput = document.getElementById("imageInput");
+
+                    if (fileInput.files.length > 0) {
+                        var file = fileInput.files[0];
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            var imageDataUrl = e.target.result;
+                            video.src = imageDataUrl;
+
+                            // Add code for sending the image data to your prediction server
+                            // You may need to adjust this part based on your backend and prediction logic
+                            // For example, you can send the image data via WebSocket to your server for prediction
+                            // socket.send(JSON.stringify({ imageData: imageDataUrl }));
+                        };
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert("Please select an image file.");
+                    }
+                }
+                // JavaScript
+                function setFeature(feature) {
+                    var featureLinks = document.querySelectorAll('.feature');
+
+                    // Remove 'active' class from all feature links
+                    featureLinks.forEach(function (link) {
+                        link.classList.remove('active');
+                    });
+
+                    // Add 'active' class to the clicked feature link
+                    var clickedLink = document.querySelector('.feature[data-value="' + feature + '"]');
+                    clickedLink.classList.add('active');
+
+                    if (feature === "upload") {
+                        videoElem.style.display = "none";
+                        imageInput.style.display = "block";
+                        prediction.style.display = "block";
+                    } else if (feature === "webcam") {
+                        videoElem.style.display = "block";
+                        imageInput.style.display = "none";
+                        prediction.style.display = "none";
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', function () {
+                    setFeature('upload');
+                });
+            </script>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sign Language Interpreter</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

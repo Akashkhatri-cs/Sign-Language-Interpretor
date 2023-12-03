@@ -1,0 +1,102 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Video Streaming with FastAPI</title>
+</head>
+<body>
+    <img id="video_feed" width="640" height="480" style="border:1px solid #000;"></img>
+    <button onclick="startWebcam()">Start</button>
+    <button onclick="stopWebcam()">Stop</button>
+
+    <script>
+        var socket;
+
+        function startWebcam() {
+            socket = new WebSocket("ws://localhost:8000/ws");
+
+            socket.onmessage = function (event) {
+                var blob = new Blob([event.data], { type: "image/jpeg" });
+                var url = URL.createObjectURL(blob);
+                document.getElementById("video_feed").src = url;
+            };
+        }
+
+        function stopWebcam() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.close();
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Streaming with FastAPI</title>
+</head>
+<body>
+    <img id="video_feed" width="640" height="480" style="border:1px solid #000;"></img>
+    <!-- <button onclick="sendToken('start')">Start</button>
+    <button onclick="sendToken('stop')">Stop</button> -->
+    <script>
+        var socket = new WebSocket("ws://localhost:8000/ws");
+
+        var video = document.getElementById("video_feed");
+        // function sendToken(token) {
+        //     socket.send(JSON.stringify({ token: token }));
+        // }
+        socket.onmessage = function(event) {
+            var blob = new Blob([event.data], { type: "image/jpeg" });
+            var url = URL.createObjectURL(blob);
+            video.src = url;
+        };
+    </script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI WebSocket Example</title>
+</head>
+<body>
+    <h1>Live Video Stream</h1>
+    <div id="video-container"></div>
+
+    <script>
+        // Your WebSocket connection code here
+        const ws = new WebSocket("ws://localhost:8000/ws");
+
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            switch (message.type) {
+                case "image":
+                    // Handle image data
+                    const imageData = message.data;  // Use this data to display the image
+
+                    // Example: Display the image in an img tag
+                    const imgElement = document.createElement("img");
+                    imgElement.src = "data:image/jpeg;base64," + imageData;
+                    document.getElementById("video-container").innerHTML = "";
+                    document.getElementById("video-container").appendChild(imgElement);
+                    break;
+                // Add more cases as needed
+            }
+        };
+    </script>
+</body>
+</html> -->

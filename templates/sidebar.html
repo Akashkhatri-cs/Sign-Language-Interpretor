@@ -1,0 +1,31 @@
+<!-- sidebar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <aside>
+        <h2>Control Features</h2>
+        <form>
+            <label>
+                <input type="radio" name="feature" value="webcam" onclick="setFeature('webcam')" checked>
+                Webcam
+            </label>
+            <label>
+                <input type="radio" name="feature" value="upload" onclick="setFeature('upload')">
+                Image Upload
+            </label>
+        </form>
+
+        <script>
+            function setFeature(feature) {
+                window.parent.postMessage({ feature: feature }, '*');
+            }
+        </script>
+    </aside>
+</body>
+</html>

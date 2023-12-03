@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Prediction</title>
+</head>
+<body>
+    <button onclick="startDetection()">Start Detection</button>
+    <button onclick="stopDetection()">Stop Detection</button>
+    
+    <img id="video_feed" width="640" height="480" style="border: 1px solid #000;"></img>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script>
+        let model;
+
+        async function loadModel() {
+            // Load the TensorFlow.js model
+            model = await tf.loadLayersModel("model.json");
+            console.log('Model loaded:', model);
+        }
+
+        async function predictSignLanguage() {
+            // Perform video processing and predictions
+            // For simplicity, use a constant message
+            const message = "Predicted sign";
+            
+            // Update the UI with the prediction result
+            document.getElementById("video_feed").textContent = message;
+
+            // Send predictions to the server using WebSocket
+            const socket = new WebSocket("ws://" + window.location.host + "/ws");
+            socket.onmessage = (event) => {
+                const result = event.data;
+                console.log("Received result:", result);
+            };
+        }
+
+        async function startDetection() {
+            await loadModel();
+            // Call the predictSignLanguage function at an interval
+            predictionInterval = setInterval(predictSignLanguage, 1000);
+        }
+
+        function stopDetection() {
+            // Stop the prediction interval
+            clearInterval(predictionInterval);
+        }
+    </script>
+</body>
+</html>
